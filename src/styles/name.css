@@ -1,0 +1,27 @@
+.name-text {
+    display: block;
+    margin: auto;
+    padding: 10px;
+    margin-top: 10px;
+  }
+  
+  .done {
+    background-color: hotpink;
+    color: white;
+    padding: 10px;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+  }
+  
+  .name-div p {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 5%;
+  }
+  
+
+  h1 {
+      text-align: center;
+  }
