@@ -359,18 +359,7 @@ export default class Workouts extends React.Component {
         completed: [...this.state.completed, name],
       });
     };
-
-    const determineId = () => {
-        this.state.completed.map(name => {
-            if(name === determineFirst().name) {
-                return "green"
-            } else {
-                return "red"
-            }
-        })
-      };
-      console.log(determineId())
-
+    
     return (
       <div>
         <header>Elevate</header>

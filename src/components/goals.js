@@ -28,7 +28,7 @@ export default class Goals extends React.Component {
 
   active = () => {
     let goals = this.state.arr.filter((goal) => goal.isActive);
-    if (goals.length > 1) {
+    if (goals.length > 1 || goals.length < 1) {
       return true;
     }
   };
