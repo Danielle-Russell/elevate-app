@@ -1,28 +1,28 @@
 import React from "react";
 import "../styles/modal.css";
 
-export default class Modal extends React.Component {
+export default class SecondModal extends React.Component {
     
   render() {
     return (
       <div id="modal-window" className="shadow">
         <div className="main-modal">
-          <h1 className="workout-title">{this.props.determineFirst().name}</h1>
+          <h1 className="workout-title">{this.props.determineSecond().name}</h1>
           <br />
           <div className="workoutPlan">
             <h2>Why</h2>
             <p>
-            {this.props.determineFirst().why}
+            {this.props.determineSecond().why}
             </p>
           </div>
           <div className="workoutPlan">
             <h2>Tip</h2>
             <p>
-            {this.props.determineFirst().tip}
+            {this.props.determineSecond().tip}
             </p>
           </div>
           <button>Mark as Complete</button>
-          <button onClick={this.props.closeModal} className="close">
+          <button onClick={this.props.closeSecondModal} className="close">
             X
           </button>
         </div>

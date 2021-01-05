@@ -17,7 +17,7 @@ class App extends React.Component {
     weight: 0,
     height: 0,
     goals: [],
-    time: []
+    time: [],
   };
 
   nameChange = (name) => {
@@ -59,11 +59,12 @@ class App extends React.Component {
 
   setTime = (time) => {
     this.setState({
-      time: [...this.state.time, time]
-    })
-  }
+      time: [...this.state.time, time],
+    });
+  };
 
   render() {
+  
     return (
       <div>
         <Route component={Landing} exact path="/" />
@@ -97,6 +98,7 @@ class App extends React.Component {
               {...props}
               height={this.state.height}
               setHeight={this.setHeight}
+              weight={this.state.weight}
             />
           )}
           path="/height"
@@ -104,19 +106,19 @@ class App extends React.Component {
         <Route
           render={(props) => <Goals {...props} setGoals={this.setGoals} />}
           path="/goals"
-        /> 
+        />
         <Route
-        render={(props) => <Time {...props} setTime={this.setTime} />}
-        path="/time"
-      />
+          render={(props) => <Time {...props} setTime={this.setTime} />}
+          path="/time"
+        />
         <Route
-        render={(props) => <Summary {...props} state={this.state} />}
-        path="/summary"
-      />
-       <Route
-        render={(props) => <Workouts {...props} state={this.state} />}
-        path="/workouts"
-      />
+          render={(props) => <Summary {...props} state={this.state} />}
+          path="/summary"
+        />
+        <Route
+          render={(props) => <Workouts {...props} state={this.state} />}
+          path="/workouts"
+        />
       </div>
     );
   }

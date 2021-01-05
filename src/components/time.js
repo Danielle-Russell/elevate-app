@@ -27,6 +27,13 @@ export default class Time extends React.Component {
     this.props.history.goBack();
   };
 
+  active = () => {
+    let time = this.state.timeArr.filter((time) => time.isActive);
+    if (time.length <= 1 || time.length >= 3) {
+      return true;
+    }
+  };
+
   render() {
     return (
       <div>
@@ -45,7 +52,8 @@ export default class Time extends React.Component {
             </div>
           ))}
         </div>
-        <button onClick={this.next} className="done">
+        {this.active() ? "Please select 2" : null}
+        <button onClick={this.next} disabled={this.active()} className="done">
           Done
         </button>
       </div>

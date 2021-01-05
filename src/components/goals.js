@@ -3,16 +3,16 @@ import "../styles/goals.css";
 
 export default class Goals extends React.Component {
   state = {
-      arr: [
-        { name: "Lose Weight", isActive: false },
-        { name: "Tone Up", isActive: false },
-        { name: "Improve Fitness", isActive: false }
-      ]
-    };
+    arr: [
+      { name: "Lose Weight", isActive: false },
+      { name: "Tone Up", isActive: false },
+      { name: "Improve Fitness", isActive: false },
+    ],
+  };
 
   next = () => {
-    let goals = this.state.arr.filter(goal => goal.isActive)
-    this.props.setGoals(goals)
+    let goals = this.state.arr.filter((goal) => goal.isActive);
+    this.props.setGoals(goals);
     this.props.history.push("/time");
   };
 
@@ -24,12 +24,21 @@ export default class Goals extends React.Component {
 
   back = () => {
     this.props.history.goBack();
-  }
+  };
+
+  active = () => {
+    let goals = this.state.arr.filter((goal) => goal.isActive);
+    if (goals.length > 1) {
+      return true;
+    }
+  };
 
   render() {
     return (
       <div>
-       <header> <span onClick={this.back}>&#8592;</span> Elevate</header>
+        <header>
+          <span onClick={this.back}>&#8592;</span> Elevate
+        </header>
         <h1>Goals</h1>
         <div>
           {this.state.arr.map((el, index) => (
@@ -42,7 +51,8 @@ export default class Goals extends React.Component {
             </div>
           ))}
         </div>
-        <button onClick={this.next} className="done">
+        {this.active() ? "Please select 1" : null}
+        <button onClick={this.next} disabled={this.active()} className="done">
           Done
         </button>
       </div>

@@ -14,6 +14,14 @@ export default  class Height extends React.Component{
     this.props.setHeight(parseFloat(e.target.value))
   }
 
+  calculateBMI = () => {
+    let weight = (Number(this.props.weight)) * 0.45359237;
+    let height = this.props.height;
+    let calc = weight / Math.pow(height, 2);
+    let bmi = calc * 10000;
+    return bmi.toFixed(2)
+  };
+  
   next = () => {
     this.props.history.push("/goals");
   }
@@ -36,6 +44,7 @@ export default  class Height extends React.Component{
           min="50"
           max="250"
         />
+        {this.calculateBMI() <= 18.5 ? "Your BMI is less than 18.5%. We recommend consulting your doctor before engaging in regular workouts" : null}
       <button className="done" onClick={this.next}>
         Done!
       </button>
