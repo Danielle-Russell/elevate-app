@@ -4,3 +4,12 @@
     text-align: center;
     padding: 5%;
 }
+
+#complete {
+background-color: green;
+}
+
+#incomplete {
+    background-color: white;
+
+}

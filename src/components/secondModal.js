@@ -2,7 +2,10 @@ import React from "react";
 import "../styles/modal.css";
 
 export default class SecondModal extends React.Component {
-    
+    markAsCompleted = (e) => {
+        this.props.markAsComplete(e.currentTarget.value);
+        this.props.closeSecondModal()
+      };
   render() {
     return (
       <div id="modal-window" className="shadow">
@@ -21,8 +24,9 @@ export default class SecondModal extends React.Component {
             {this.props.determineSecond().tip}
             </p>
           </div>
-          <button>Mark as Complete</button>
-          <button onClick={this.props.closeSecondModal} className="close">
+          <button onClick={this.markAsCompleted} value={this.props.determineSecond().name}>
+              Mark as Complete
+            </button>          <button onClick={this.props.closeSecondModal} className="close">
             X
           </button>
         </div>

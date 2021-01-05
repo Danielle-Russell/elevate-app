@@ -12,9 +12,9 @@ export default class Workouts extends React.Component {
     dayTwo: false,
     dayThree: false,
     dayFour: false,
+    completed: [],
   };
 
-  
   showModal = () => {
     this.setState({
       showFirst: true,
@@ -43,7 +43,6 @@ export default class Workouts extends React.Component {
     for (let i = 0; i < this.props.state.goals.length; i++) {
       return this.props.state.goals[i][0].name;
     }
-
   };
 
   timeArrayOne = () => {
@@ -355,16 +354,38 @@ export default class Workouts extends React.Component {
       }
     };
 
+    const markAsComplete = (name) => {
+      this.setState({
+        completed: [...this.state.completed, name],
+      });
+    };
+
+    const determineId = () => {
+        this.state.completed.map(name => {
+            if(name === determineFirst().name) {
+                return "green"
+            } else {
+                return "red"
+            }
+        })
+      };
+      console.log(determineId())
+
     return (
       <div>
         <header>Elevate</header>
         {this.state.showFirst ? (
-          <Modal closeModal={this.closeModal} determineFirst={determineFirst} complete={this.complete}/>
+          <Modal
+            closeModal={this.closeModal}
+            determineFirst={determineFirst}
+            markAsComplete={markAsComplete}
+          />
         ) : null}
         {this.state.showSecond ? (
           <SecondModal
             closeSecondModal={this.closeSecondModal}
             determineSecond={determineSecond}
+            markAsComplete={markAsComplete}
           />
         ) : null}
 
@@ -401,7 +422,9 @@ export default class Workouts extends React.Component {
           <br />
           {this.timeArrayTwo()}
         </div>
-        
+        {this.state.completed.length >= 2
+          ? "You Completed A Day! Well Done!"
+          : null}
       </div>
     );
   }
