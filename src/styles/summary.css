@@ -1,0 +1,12 @@
+.goal-con {
+    display: block;
+    margin: auto;
+    border: solid;
+}
+
+.goal-con img {
+    width: 90px;
+    display: block;
+    margin: auto;
+}
+

@@ -14,7 +14,7 @@ export default class Time extends React.Component {
   next = () => {
     let time = this.state.timeArr.filter((time) => time.isActive);
     this.props.setTime(time);
-    this.props.history.push("/");
+    this.props.history.push("/summary");
   };
 
   onClick(index) {
