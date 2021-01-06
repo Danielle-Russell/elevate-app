@@ -1,12 +1,14 @@
 /* Design for mobile first */
 header {
-  background-color: hotpink;
+  background-color: black;
   text-align: left;
-  padding: 20px;
+  padding: 10px;
   color: white;
+  font-weight: bold;
 }
 
-.wrapper, .secondWrapper {
+.wrapper,
+.secondWrapper {
   display: flex;
   flex-direction: column;
 }
@@ -18,7 +20,7 @@ header {
 }
 
 .left-item img {
-    width: 100vw;
+  width: 100vw;
 }
 
 .right-item form {
@@ -30,7 +32,8 @@ header {
   background-color: #ffffff;
   height: 60%;
   width: 50%;
-  margin: 10%;
+  margin-left: 15%;
+  margin-top: 8%;
 }
 
 .right-item form input {
@@ -39,22 +42,6 @@ header {
   border-color: #e5e5e5;
   border-radius: 5%;
   margin: 2% 0 2% 0;
-}
-
-button {
-  display: block;
-  margin: 5% 0 5% 0;
-  background-color: #13aec3;
-  padding: 2%;
-  width: 50%;
-  margin: auto;
-  color: white;
-  font-weight: bold;
-}
-
-#login-btn {
-  background-color: #007dc3;
-  width: 100%;
 }
 
 span {
@@ -70,21 +57,42 @@ hr {
 }
 
 .icon {
-    width: 100px;
-    margin: auto;
-    margin-top: 5%;
+  width: 100px;
+  margin: auto;
 }
 
 .secondWrapper {
-    background-color: #e5e5e5;
+  margin: 5%;
+  text-align: center;
+  justify-content: center;
 }
+
+footer {
+  background-color: black;
+}
+
 /* Desktop Styles */
 @media all and (min-width: 800px) {
-  .wrapper, .secondWrapper {
+  .wrapper {
+    flex-direction: row;
+    height: 60vh;
+    background-color: #e5e5e5;
+  }
+
+  .secondWrapper {
+    display: flex;
     flex-direction: row;
   }
 
+  .secondWrapper div {
+    display: inline-block;
+    margin-left: 15%;
+    margin-right: 15%;
+  }
+
   .left-item img {
-      width: 50vw;
+    width: 45vw;
+    margin: 5%;
+    border-radius: 10%;
   }
 }

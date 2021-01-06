@@ -21,7 +21,7 @@ export default class Modal extends React.Component {
             <p>{this.props.determineFirst().tip}</p>
           </div>
           
-            <button onClick={this.markAsCompleted} value={this.props.determineFirst().name}>
+            <button className="done" onClick={this.markAsCompleted} value={this.props.determineFirst().name}>
               Mark as Complete
             </button>
         

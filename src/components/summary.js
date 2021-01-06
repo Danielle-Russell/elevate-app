@@ -29,7 +29,7 @@ export default class Summary extends React.Component {
         have determined a personal workout plan that we believe is best suited
         to you. Follow the directions to customize your workout plans. Happy
         working out!</p>
-        <button className="sum-btn" onClick={this.next}>See Plans</button>
+        <button className="done" onClick={this.next}>See Plans</button>
       </div>
     );
   }

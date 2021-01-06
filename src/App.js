@@ -7,6 +7,7 @@ import Weight from "./components/weight.js";
 import Height from "./components/height.js";
 import Goals from "./components/goals.js";
 import Time from "./components/time.js";
+import Days from "./components/days.js";
 import Summary from "./components/summary.js";
 import Workouts from "./components/workouts.js";
 
@@ -18,6 +19,7 @@ class App extends React.Component {
     height: 0,
     goals: [],
     time: [],
+    days: []
   };
 
   nameChange = (name) => {
@@ -60,6 +62,12 @@ class App extends React.Component {
   setTime = (time) => {
     this.setState({
       time: [...this.state.time, time],
+    });
+  };
+
+  setDays = (days) => {
+    this.setState({
+      days: [...this.state.days, days],
     });
   };
 
@@ -110,6 +118,10 @@ class App extends React.Component {
         <Route
           render={(props) => <Time {...props} setTime={this.setTime} />}
           path="/time"
+        />
+         <Route
+          render={(props) => <Days {...props} setDays={this.setDays} days={this.state.days} />}
+          path="/days"
         />
         <Route
           render={(props) => <Summary {...props} state={this.state} />}

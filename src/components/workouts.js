@@ -3,6 +3,7 @@ import moment from "moment";
 import "../styles/workouts.css";
 import Modal from "./modal.js";
 import SecondModal from "./secondModal.js";
+import workouts from "./dummyData";
 
 export default class Workouts extends React.Component {
   state = {
@@ -93,189 +94,6 @@ export default class Workouts extends React.Component {
   };
 
   render() {
-    const workouts = {
-      weight: {
-        dayOne: [
-          {
-            name: "Run",
-            why:
-              "Not only is running a great calorie burner, it also helps you to gain fitness AND gain muscle tone",
-            tip:
-              "Aim for a steady jog, but if short sprints works better for you, then go for it! Both will burn roughly 500 calories, but a steady pace will improve your endurance",
-            time: this.props.state.time[0],
-          },
-          {
-            name: "Nature walk",
-            why:
-              "Not only is walking great for your heart, muscles, and weight loss, it has been proven to be a mood lifter. Add nature to the equation, and you have a workout and a free meditation!",
-            tip:
-              "Try to go without phone screens to clear your mind. Also, try to keep the pace as close to a power walk as possible to make sure those calories are burning",
-            time: this.props.state.time[1],
-          },
-        ],
-        dayTwo: [
-          {
-            name: "Box Step Ups",
-            why:
-              "Box step ups are not only great cardio for weight loss, but also are a great workout for your glutes",
-            tip:
-              "Pump some of your favorite tunes to get motivated and keep up the pace!",
-            time: this.props.state.time[0],
-          },
-          {
-            name: "Dance",
-            why: "",
-            tip: "",
-            time: this.props.state.time[1],
-          },
-        ],
-        dayThree: [
-          {
-            name: "Running",
-            why: "",
-            tip: "",
-            time: this.props.state.time[0],
-          },
-          {
-            name: "Nature Walk",
-            why: "",
-            tip: "",
-            time: this.props.state.time[1],
-          },
-        ],
-        dayFour: [
-          {
-            name: "Crunches",
-            why: "",
-            tip: "",
-            time: this.props.state.time[0],
-          },
-          {
-            name: "Walk",
-            why: "",
-            tip: "",
-            time: this.props.state.time[1],
-          },
-        ],
-      },
-      fit: {
-        dayOne: [
-          {
-            name: "Run",
-            why: "",
-            tip: "",
-            time: this.props.state.time[0],
-          },
-          {
-            name: "Nature walk",
-            why: "",
-            tip: "",
-            time: this.props.state.time[1],
-          },
-        ],
-        dayTwo: [
-          {
-            name: "Box Step Ups",
-            why: "",
-            tip: "",
-            time: this.props.state.time[0],
-          },
-          {
-            name: "Dance",
-            why: "",
-            tip: "",
-            time: this.props.state.time[1],
-          },
-        ],
-        dayThree: [
-          {
-            name: "Running",
-            why: "",
-            tip: "",
-            time: this.props.state.time[0],
-          },
-          {
-            name: "Nature Walk",
-            why: "",
-            tip: "",
-            time: this.props.state.time[1],
-          },
-        ],
-        dayFour: [
-          {
-            name: "Crunches",
-            why: "",
-            tip: "",
-            time: this.props.state.time[0],
-          },
-          {
-            name: "Walk",
-            why: "",
-            tip: "",
-            time: this.props.state.time[1],
-          },
-        ],
-      },
-      tone: {
-        dayOne: [
-          {
-            name: "Squats and Lunges",
-            why: "",
-            tip: "",
-            time: this.props.state.time[0],
-          },
-          {
-            name: "Nature Walk",
-            why: "",
-            tip: "",
-            time: this.props.state.time[1],
-          },
-        ],
-        dayTwo: [
-          {
-            name: "Crunches",
-            why: "",
-            tip: "",
-            time: this.props.state.time[0],
-          },
-          {
-            name: "Situps",
-            why: "",
-            tip: "",
-            time: this.props.state.time[1],
-          },
-        ],
-        dayThree: [
-          {
-            name: "Pushups",
-            why: "",
-            tip: "",
-            time: this.props.state.time[0],
-          },
-          {
-            name: "Squats and Lunges",
-            why: "",
-            tip: "",
-            time: this.props.state.time[1],
-          },
-        ],
-        dayFour: [
-          {
-            name: "Situps",
-            why: "",
-            tip: "",
-            time: this.props.state.time[0],
-          },
-          {
-            name: "Pushups",
-            why: "",
-            tip: "",
-            time: this.props.state.time[1],
-          },
-        ],
-      },
-    };
-
     const determineFirst = () => {
       if (this.state.dayOne) {
         return this.goalsArray() === "Lose Weight"
@@ -306,11 +124,11 @@ export default class Workouts extends React.Component {
       }
       if (this.state.dayFour) {
         return this.goalsArray() === "Lose Weight"
-          ? workouts.weight.dayOne[0]
+          ? workouts.weight.dayFour[0]
           : this.goalsArray() === "Tone Up"
-          ? workouts.tone.dayOne[0]
+          ? workouts.tone.dayFour[0]
           : this.goalsArray() === "Improve Fitness"
-          ? workouts.fitness.dayOne[0]
+          ? workouts.fitness.dayFour[0]
           : null;
       }
     };
@@ -359,7 +177,7 @@ export default class Workouts extends React.Component {
         completed: [...this.state.completed, name],
       });
     };
-    
+
     return (
       <div>
         <header>Elevate</header>
@@ -377,26 +195,30 @@ export default class Workouts extends React.Component {
             markAsComplete={markAsComplete}
           />
         ) : null}
+        <h1>Week One</h1>
 
         <div className="date">
           {this.state.dayOne ? (
             <div>
-              <span>&#8592;</span> Mon
+              <span>&#8592;</span> {this.props.state.days[0][0].name}
               <span onClick={this.dayTwo}> &#8594; </span>
             </div>
           ) : this.state.dayTwo ? (
             <div>
-              <span onClick={this.dayOne}>&#8592;</span> Weds
+              <span onClick={this.dayOne}>&#8592;</span>{" "}
+              {this.props.state.days[0][1].name}
               <span onClick={this.dayThree}> &#8594; </span>
             </div>
           ) : this.state.dayThree ? (
             <div>
-              <span onClick={this.dayTwo}>&#8592;</span> Fri
+              <span onClick={this.dayTwo}>&#8592;</span>
+              {this.props.state.days[0][2].name}
               <span onClick={this.dayFour}> &#8594; </span>
             </div>
           ) : this.state.dayFour ? (
             <div>
-              <span onClick={this.dayThree}>&#8592;</span> Sun
+              <span onClick={this.dayThree}>&#8592;</span>{" "}
+              {this.props.state.days[0][3].name}
               <span> &#8594; </span>
             </div>
           ) : null}
