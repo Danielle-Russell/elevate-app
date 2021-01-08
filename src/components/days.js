@@ -1,4 +1,5 @@
 import React from "react";
+import config from "../config"
 
 export default class Days extends React.Component {
   state = {
@@ -16,8 +17,9 @@ export default class Days extends React.Component {
   next = () => {
     let days = this.state.daysArr.filter((day) => day.isActive);
     this.props.setDays(days);
-    this.props.history.push("/summary");
-  };
+    this.props.history.push("/summary")
+    };
+  
 
   onClick(index) {
     let tmp = this.state.daysArr;

@@ -10,6 +10,7 @@ import Time from "./components/time.js";
 import Days from "./components/days.js";
 import Summary from "./components/summary.js";
 import Workouts from "./components/workouts.js";
+import config from "./config";
 
 class App extends React.Component {
   state = {
@@ -19,7 +20,8 @@ class App extends React.Component {
     height: 0,
     goals: [],
     time: [],
-    days: []
+    days: [],
+    preferences: {}
   };
 
   nameChange = (name) => {
@@ -71,11 +73,42 @@ class App extends React.Component {
     });
   };
 
+  addPref = (pref) => {
+    this.setState({
+      preferences: pref
+    })
+  }
+
+  componentDidMount() {
+    const email = localStorage.getItem("user email");
+    Promise.all([
+      fetch(`${config.API_ENDPOINT}/api/workouts/${email}`),
+      fetch(`${config.API_ENDPOINT}/api/preferences/${email}`),
+    ])
+      .then(([workoutsRes, prefRes]) => {
+        if (!workoutsRes.ok)
+          return workoutsRes.json().then((e) => Promise.reject(e));
+        if (!prefRes.ok) return prefRes.json().then((e) => Promise.reject(e));
+        return Promise.all([workoutsRes.json(), prefRes.json()]);
+      })
+      .then(([workouts, preferences]) => {
+        this.setState({
+          work: workouts,
+          preferences: preferences,
+        });
+      })
+      .catch((e) => {
+        this.setState({
+          hasError: true,
+        });
+      });
+  }
+
   render() {
-  
     return (
       <div>
         <Route component={Landing} exact path="/" />
+
         <Route
           render={(props) => (
             <Name
@@ -119,16 +152,18 @@ class App extends React.Component {
           render={(props) => <Time {...props} setTime={this.setTime} />}
           path="/time"
         />
-         <Route
-          render={(props) => <Days {...props} setDays={this.setDays} days={this.state.days} />}
+        <Route
+          render={(props) => (
+            <Days {...props} setDays={this.setDays} days={this.state.days} />
+          )}
           path="/days"
         />
         <Route
-          render={(props) => <Summary {...props} state={this.state} />}
+          render={(props) => <Summary {...props} state={this.state} addPref={this.addPref} />}
           path="/summary"
         />
         <Route
-          render={(props) => <Workouts {...props} state={this.state} />}
+          render={(props) => <Workouts {...props} state={this.state}  />}
           path="/workouts"
         />
       </div>

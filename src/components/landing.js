@@ -1,20 +1,45 @@
 import React from "react";
 import "../styles/landing.css";
+import AuthApiService from "../auth-api-service";
+import TokenService from "../tokenService";
 
 export default class Landing extends React.Component {
+  state = {
+    error: false,
+  };
   firstQuestion = () => {
     this.props.history.push("/name");
   };
 
-  login = () => {
-    this.props.history.push("/login");
+  handleSubmitJwtAuth = (ev) => {
+    ev.preventDefault();
+    const { email, password } = ev.target;
+
+    AuthApiService.postLogin({
+      email: email.value,
+      password: password.value,
+    })
+      .then((res) => {
+        email.value = "";
+        password.value = "";
+        TokenService.saveAuthToken(res.authToken);
+        const user = res.user;
+        localStorage.setItem("user email", user.email);
+        localStorage.setItem("firstname", user.firstname);
+        localStorage.setItem("lastname", user.lastname);
+        this.props.history.push("/workouts")
+        window.location.reload();
+      })
+      .catch((res) => {
+        console.log(res.message);
+        this.setState({ error: res.error });
+      });
   };
+
   render() {
     return (
       <div>
-        <header>
-          Elevate
-        </header>
+        <header>Elevate</header>
         <main className="wrapper">
           <div className="left-item">
             <img
@@ -23,19 +48,29 @@ export default class Landing extends React.Component {
             />
           </div>
           <div className="right-item">
-            <form>
+            <form onSubmit={this.handleSubmitJwtAuth}>
               {/*<label htmlFor="username"> Username </label>*/}
-              <input id="username" type="text" placeholder="Username" />
+              <input
+                id="username"
+                type="text"
+                placeholder="Username"
+                name="email"
+              />
               {/*<label htmlFor="password"> Password </label>*/}
-              <input id="password" type="password" placeholder="Password" />
+              <input
+                id="password"
+                type="password"
+                placeholder="Password"
+                name="password"
+              />
               <button id="login-btn" type="submit">
                 Log In
               </button>
+              {this.state.error ? this.state.error : null}
               <span>Forgot Password?</span>
               <hr />
               <button onClick={this.firstQuestion} type="button">
-                {" "}
-                New User{" "}
+                New User
               </button>
             </form>
           </div>

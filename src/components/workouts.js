@@ -4,6 +4,7 @@ import "../styles/workouts.css";
 import Modal from "./modal.js";
 import SecondModal from "./secondModal.js";
 import workouts from "./dummyData";
+import config from "../config";
 
 export default class Workouts extends React.Component {
   state = {
@@ -38,24 +39,6 @@ export default class Workouts extends React.Component {
     this.setState({
       showSecond: false,
     });
-  };
-
-  goalsArray = () => {
-    for (let i = 0; i < this.props.state.goals.length; i++) {
-      return this.props.state.goals[i][0].name;
-    }
-  };
-
-  timeArrayOne = () => {
-    for (let i = 0; i < this.props.state.time.length; i++) {
-      return this.props.state.time[i][0].name;
-    }
-  };
-
-  timeArrayTwo = () => {
-    for (let i = 0; i < this.props.state.time.length; i++) {
-      return this.props.state.time[i][1].name;
-    }
   };
 
   dayOne = () => {
@@ -93,82 +76,85 @@ export default class Workouts extends React.Component {
     });
   };
 
-  render() {
+  render() {  
     const determineFirst = () => {
+      let pref = this.props.state.preferences.goals;
       if (this.state.dayOne) {
-        return this.goalsArray() === "Lose Weight"
+        return pref === "Lose Weight"
           ? workouts.weight.dayOne[0]
-          : this.goalsArray() === "Tone Up"
+          : pref === "Tone  Up"
           ? workouts.tone.dayOne[0]
-          : this.goalsArray() === "Improve Fitness"
+          : pref === "Improve Fitness"
           ? workouts.fitness.dayOne[0]
-          : null;
+          : workouts.weight.dayOne[0];
       }
       if (this.state.dayTwo) {
-        return this.goalsArray() === "Lose Weight"
+        return pref === "Lose Weight"
           ? workouts.weight.dayTwo[0]
-          : this.goalsArray() === "Tone Up"
+          : pref === "Tone Up"
           ? workouts.tone.dayTwo[0]
-          : this.goalsArray() === "Improve Fitness"
+          : pref === "Improve Fitness"
           ? workouts.fitness.dayTwo[0]
-          : null;
+          : workouts.weight.dayTwo[0];
       }
       if (this.state.dayThree) {
-        return this.goalsArray() === "Lose Weight"
+        return pref === "Lose Weight"
           ? workouts.weight.dayThree[0]
-          : this.goalsArray() === "Tone Up"
+          : pref === "Tone Up"
           ? workouts.tone.dayThree[0]
-          : this.goalsArray() === "Improve Fitness"
+          : pref === "Improve Fitness"
           ? workouts.fitness.dayThree[0]
-          : null;
+          : workouts.weight.dayThree[0];
       }
       if (this.state.dayFour) {
-        return this.goalsArray() === "Lose Weight"
+        return pref === "Lose Weight"
           ? workouts.weight.dayFour[0]
-          : this.goalsArray() === "Tone Up"
+          : pref === "Tone Up"
           ? workouts.tone.dayFour[0]
-          : this.goalsArray() === "Improve Fitness"
+          : pref === "Improve Fitness"
           ? workouts.fitness.dayFour[0]
-          : null;
+          : workouts.weight.dayFour[0];
       }
     };
 
     const determineSecond = () => {
+      let pref = this.props.state.preferences.goals;
+
       if (this.state.dayOne) {
-        return this.goalsArray() === "Lose Weight"
+        return pref === "Lose Weight"
           ? workouts.weight.dayOne[1]
-          : this.goalsArray() === "Tone Up"
+          : pref === "Tone Up"
           ? workouts.tone.dayOne[1]
-          : this.goalsArray() === "Improve Fitness"
+          : pref === "Improve Fitness"
           ? workouts.fitness.dayOne[1]
-          : null;
+          : workouts.weight.dayOne[1];
       }
       if (this.state.dayTwo) {
-        return this.goalsArray() === "Lose Weight"
+        return pref === "Lose Weight"
           ? workouts.weight.dayTwo[1]
-          : this.goalsArray() === "Tone Up"
+          : pref === "Tone Up"
           ? workouts.tone.dayTwo[1]
-          : this.goalsArray() === "Improve Fitness"
+          : pref === "Improve Fitness"
           ? workouts.fitness.dayTwo[1]
-          : null;
+          : workouts.weight.dayTwo[1];
       }
       if (this.state.dayThree) {
-        return this.goalsArray() === "Lose Weight"
+        return pref === "Lose Weight"
           ? workouts.weight.dayThree[1]
-          : this.goalsArray() === "Tone Up"
+          : pref === "Tone Up"
           ? workouts.tone.dayThree[1]
-          : this.goalsArray() === "Improve Fitness"
+          : pref === "Improve Fitness"
           ? workouts.fitness.dayThree[1]
-          : null;
+          : workouts.weight.dayThree[1];
       }
       if (this.state.dayFour) {
-        return this.goalsArray() === "Lose Weight"
+        return pref === "Lose Weight"
           ? workouts.weight.dayOne[1]
-          : this.goalsArray() === "Tone Up"
+          : pref === "Tone Up"
           ? workouts.tone.dayOne[1]
-          : this.goalsArray() === "Improve Fitness"
+          : pref === "Improve Fitness"
           ? workouts.fitness.dayOne[1]
-          : null;
+          : workouts.weight.dayOne[1];
       }
     };
 
@@ -177,6 +163,10 @@ export default class Workouts extends React.Component {
         completed: [...this.state.completed, name],
       });
     };
+
+    const days = this.props.state.preferences.days.split(",");
+
+    const time = this.props.state.preferences.time.split(",")
 
     return (
       <div>
@@ -195,30 +185,41 @@ export default class Workouts extends React.Component {
             markAsComplete={markAsComplete}
           />
         ) : null}
-        <h1>Week One</h1>
+        <h1>Welcome, </h1>
+        <h2>Beginners Challenge Week</h2>
 
         <div className="date">
+          {/*this.props.state.workoutArray.map((workout) => (
+            <div>
+              <span>&#8592;</span> {workout.title}
+              <span> &#8594; </span>
+            </div>
+          ))*/}
           {this.state.dayOne ? (
             <div>
-              <span>&#8592;</span> {this.props.state.days[0][0].name}
+              <span>&#8592;</span>
+              {days[0]}
               <span onClick={this.dayTwo}> &#8594; </span>
             </div>
           ) : this.state.dayTwo ? (
             <div>
-              <span onClick={this.dayOne}>&#8592;</span>{" "}
-              {this.props.state.days[0][1].name}
+              <span onClick={this.dayOne}>&#8592;</span>
+              {days[1]}
+
               <span onClick={this.dayThree}> &#8594; </span>
             </div>
           ) : this.state.dayThree ? (
             <div>
               <span onClick={this.dayTwo}>&#8592;</span>
-              {this.props.state.days[0][2].name}
+              {days[2]}
+
               <span onClick={this.dayFour}> &#8594; </span>
             </div>
           ) : this.state.dayFour ? (
             <div>
-              <span onClick={this.dayThree}>&#8592;</span>{" "}
-              {this.props.state.days[0][3].name}
+              <span onClick={this.dayThree}>&#8592;</span>
+              {days[3]}
+
               <span> &#8594; </span>
             </div>
           ) : null}
@@ -226,16 +227,14 @@ export default class Workouts extends React.Component {
         <div className="date" onClick={this.showModal}>
           {determineFirst().name}
           <br />
-          {this.timeArrayOne()}
+          {time[0]}
         </div>
         <div className="date" onClick={this.showSecondModal}>
-          {determineSecond().name}
+        {determineSecond().name}
+
           <br />
-          {this.timeArrayTwo()}
+          {time[1]}
         </div>
-        {this.state.completed.length >= 2
-          ? "You Completed A Day! Well Done!"
-          : null}
       </div>
     );
   }
