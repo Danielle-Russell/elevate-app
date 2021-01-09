@@ -99,7 +99,7 @@ export default class Workouts extends React.Component {
           : pref === "Tone  Up"
           ? workouts.tone.dayOne[0]
           : pref === "Improve Fitness"
-          ? workouts.fitness.dayOne[0]
+          ? workouts.fit.dayOne[0]
           : workouts.weight.dayOne[0];
       }
       if (this.state.dayTwo) {
@@ -108,7 +108,7 @@ export default class Workouts extends React.Component {
           : pref === "Tone Up"
           ? workouts.tone.dayTwo[0]
           : pref === "Improve Fitness"
-          ? workouts.fitness.dayTwo[0]
+          ? workouts.fit.dayTwo[0]
           : workouts.weight.dayTwo[0];
       }
       if (this.state.dayThree) {
@@ -117,7 +117,7 @@ export default class Workouts extends React.Component {
           : pref === "Tone Up"
           ? workouts.tone.dayThree[0]
           : pref === "Improve Fitness"
-          ? workouts.fitness.dayThree[0]
+          ? workouts.fit.dayThree[0]
           : workouts.weight.dayThree[0];
       }
       if (this.state.dayFour) {
@@ -126,7 +126,7 @@ export default class Workouts extends React.Component {
           : pref === "Tone Up"
           ? workouts.tone.dayFour[0]
           : pref === "Improve Fitness"
-          ? workouts.fitness.dayFour[0]
+          ? workouts.fit.dayFour[0]
           : workouts.weight.dayFour[0];
       }
     };
@@ -139,7 +139,7 @@ export default class Workouts extends React.Component {
           : pref === "Tone Up"
           ? workouts.tone.dayOne[1]
           : pref === "Improve Fitness"
-          ? workouts.fitness.dayOne[1]
+          ? workouts.fit.dayOne[1]
           : workouts.weight.dayOne[1];
       }
       if (this.state.dayTwo) {
@@ -148,7 +148,7 @@ export default class Workouts extends React.Component {
           : pref === "Tone Up"
           ? workouts.tone.dayTwo[1]
           : pref === "Improve Fitness"
-          ? workouts.fitness.dayTwo[1]
+          ? workouts.fit.dayTwo[1]
           : workouts.weight.dayTwo[1];
       }
       if (this.state.dayThree) {
@@ -157,7 +157,7 @@ export default class Workouts extends React.Component {
           : pref === "Tone Up"
           ? workouts.tone.dayThree[1]
           : pref === "Improve Fitness"
-          ? workouts.fitness.dayThree[1]
+          ? workouts.fit.dayThree[1]
           : workouts.weight.dayThree[1];
       }
       if (this.state.dayFour) {
@@ -166,7 +166,7 @@ export default class Workouts extends React.Component {
           : pref === "Tone Up"
           ? workouts.tone.dayOne[1]
           : pref === "Improve Fitness"
-          ? workouts.fitness.dayOne[1]
+          ? workouts.fit.dayOne[1]
           : workouts.weight.dayOne[1];
       }
     };
