@@ -10,6 +10,8 @@ import Time from "./components/time.js";
 import Days from "./components/days.js";
 import Summary from "./components/summary.js";
 import Workouts from "./components/workouts.js";
+import AddWorkout from "./components/add.js";
+
 import config from "./config";
 
 class App extends React.Component {
@@ -21,7 +23,8 @@ class App extends React.Component {
     goals: [],
     time: [],
     days: [],
-    preferences: {}
+    preferences: {},
+    work: {},
   };
 
   nameChange = (name) => {
@@ -75,9 +78,13 @@ class App extends React.Component {
 
   addPref = (pref) => {
     this.setState({
-      preferences: pref
-    })
-  }
+      preferences: pref,
+    });
+  };
+
+  addWorkout = (work) => {
+    console.log(work);
+  };
 
   componentDidMount() {
     const email = localStorage.getItem("user email");
@@ -104,7 +111,47 @@ class App extends React.Component {
       });
   }
 
+  splitDays = () => {
+    let pref;
+    if (this.state.preferences[0]) {
+      pref = this.state.preferences[0].days.split(",");
+    } else {
+      pref = ["1", "2", "3", "4"];
+    }
+    localStorage.setItem("day1", pref[0]);
+    localStorage.setItem("day2", pref[1]);
+    localStorage.setItem("day3", pref[2]);
+    localStorage.setItem("day4", pref[3]);
+  };
+
+  splitTime = () => {
+    let pref;
+    if (this.state.preferences[0]) {
+      pref = this.state.preferences[0].time.split(",");
+    } else {
+      pref = ["1", "2", "3", "4"];
+    }
+    localStorage.setItem("time1", pref[0]);
+    localStorage.setItem("time2", pref[1]);
+  };
+
+  goal = () => {
+    let pref;
+    if (this.state.preferences[0]) {
+      pref = this.state.preferences[0].goals;
+      localStorage.setItem("name", this.state.preferences[0].name);
+    } else {
+      pref = ["Lose Weight"];
+    }
+    localStorage.setItem("goal", pref);
+  };
+
   render() {
+    this.splitDays();
+
+    this.splitTime();
+
+    this.goal();
     return (
       <div>
         <Route component={Landing} exact path="/" />
@@ -159,12 +206,20 @@ class App extends React.Component {
           path="/days"
         />
         <Route
-          render={(props) => <Summary {...props} state={this.state} addPref={this.addPref} />}
+          render={(props) => (
+            <Summary {...props} state={this.state} addPref={this.addPref} />
+          )}
           path="/summary"
         />
         <Route
-          render={(props) => <Workouts {...props} state={this.state}  />}
+          render={(props) => <Workouts {...props} state={this.state} />}
           path="/workouts"
+        />
+        <Route
+          render={(props) => (
+            <AddWorkout {...props} addWorkout={this.addWorkout} />
+          )}
+          path="/add"
         />
       </div>
     );

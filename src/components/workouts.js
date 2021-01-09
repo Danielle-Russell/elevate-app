@@ -15,6 +15,8 @@ export default class Workouts extends React.Component {
     dayThree: false,
     dayFour: false,
     completed: [],
+    myWorkouts: false,
+    randomWorkout: false,
   };
 
   showModal = () => {
@@ -41,6 +43,9 @@ export default class Workouts extends React.Component {
     });
   };
 
+  addWork = () => {
+    this.props.history.push("/add");
+  };
   dayOne = () => {
     this.setState({
       dayOne: true,
@@ -76,9 +81,20 @@ export default class Workouts extends React.Component {
     });
   };
 
-  render() {  
+  change = () => {
+    this.setState({
+      myWorkouts: true,
+    });
+  };
+
+  changeBack = () => {
+    this.setState({
+      myWorkouts: false
+    })
+  }
+  render() {
     const determineFirst = () => {
-      let pref = this.props.state.preferences.goals;
+      let pref = localStorage.getItem("goal");
       if (this.state.dayOne) {
         return pref === "Lose Weight"
           ? workouts.weight.dayOne[0]
@@ -118,8 +134,7 @@ export default class Workouts extends React.Component {
     };
 
     const determineSecond = () => {
-      let pref = this.props.state.preferences.goals;
-
+      let pref = localStorage.getItem("goal");
       if (this.state.dayOne) {
         return pref === "Lose Weight"
           ? workouts.weight.dayOne[1]
@@ -164,13 +179,51 @@ export default class Workouts extends React.Component {
       });
     };
 
-    const days = this.props.state.preferences.days.split(",");
+    const day1 = localStorage.getItem("day1");
+    const day2 = localStorage.getItem("day2");
 
-    const time = this.props.state.preferences.time.split(",")
+    const day3 = localStorage.getItem("day3");
+
+    const day4 = localStorage.getItem("day4");
+
+    const time1 = localStorage.getItem("time1");
+
+    const time2 = localStorage.getItem("time2");
+
+    const name = localStorage.getItem("name");
+
+    const workoutArray = () => {
+      let arr = [];
+      for (var key in this.props.state.work) {
+        arr.push(this.props.state.work[key]);
+      }
+      return arr;
+    };
+
+    var random_index = Math.floor(Math.random() * (workoutArray().length - 3));
+    var randomize = workoutArray()[random_index];
+
+    const random = () => {
+      this.setState({
+        randomWorkout: true,
+      });
+    };
+
+    const mapWorkouts = workoutArray().map((workouts) =>
+      workouts !== "" ? (
+        <div className="date">
+          <b>{workouts.title}</b> <br /> {workouts.descr} <br />{" "}
+          <em>Tip: {workouts.tip}</em>
+        </div>
+      ) : null
+    );
 
     return (
       <div>
-        <header>Elevate</header>
+        <header>
+          Elevate <text onClick={this.changeBack}>Workout Plan</text>{" "}
+          <text onClick={this.change}>My Workouts</text>
+        </header>
         {this.state.showFirst ? (
           <Modal
             closeModal={this.closeModal}
@@ -185,56 +238,67 @@ export default class Workouts extends React.Component {
             markAsComplete={markAsComplete}
           />
         ) : null}
-        <h1>Welcome, </h1>
-        <h2>Beginners Challenge Week</h2>
 
-        <div className="date">
-          {/*this.props.state.workoutArray.map((workout) => (
-            <div>
-              <span>&#8592;</span> {workout.title}
-              <span> &#8594; </span>
-            </div>
-          ))*/}
-          {this.state.dayOne ? (
-            <div>
-              <span>&#8592;</span>
-              {days[0]}
-              <span onClick={this.dayTwo}> &#8594; </span>
-            </div>
-          ) : this.state.dayTwo ? (
-            <div>
-              <span onClick={this.dayOne}>&#8592;</span>
-              {days[1]}
+        {this.state.myWorkouts ? (
+          <div>
+            {this.state.randomWorkout ? <h1>{randomize.title}</h1> : null}{" "}
+            {mapWorkouts}
+            <button className="btn-other" onClick={random}>
+              Random Workout
+            </button>
+          </div>
+        ) : (
+          <div>
+            <h1>Welcome, {name} </h1>
+            <h2> Beginners Workout Week </h2>
+            <div className="day">
+              {this.state.dayOne ? (
+                <div>
+                  <span>&#8592;</span>
+                  {day1}
+                  <span onClick={this.dayTwo}> &#8594; </span>
+                </div>
+              ) : this.state.dayTwo ? (
+                <div>
+                  <span onClick={this.dayOne}>&#8592;</span>
+                  {day2}
 
-              <span onClick={this.dayThree}> &#8594; </span>
-            </div>
-          ) : this.state.dayThree ? (
-            <div>
-              <span onClick={this.dayTwo}>&#8592;</span>
-              {days[2]}
+                  <span onClick={this.dayThree}> &#8594; </span>
+                </div>
+              ) : this.state.dayThree ? (
+                <div>
+                  <span onClick={this.dayTwo}>&#8592;</span>
+                  {day3}
 
-              <span onClick={this.dayFour}> &#8594; </span>
-            </div>
-          ) : this.state.dayFour ? (
-            <div>
-              <span onClick={this.dayThree}>&#8592;</span>
-              {days[3]}
+                  <span onClick={this.dayFour}> &#8594; </span>
+                </div>
+              ) : this.state.dayFour ? (
+                <div>
+                  <span onClick={this.dayThree}>&#8592;</span>
+                  {day4}
 
-              <span> &#8594; </span>
-            </div>
-          ) : null}
-        </div>
-        <div className="date" onClick={this.showModal}>
-          {determineFirst().name}
-          <br />
-          {time[0]}
-        </div>
-        <div className="date" onClick={this.showSecondModal}>
-        {determineSecond().name}
+                  <span> &#8594; </span>
+                </div>
+              ) : null}
+              <div>
+              </div>
+                <div className="date" onClick={this.showModal}>
+                  {determineFirst().name}
+                  <br />
+                  <em>{time1}</em>
+                </div>
+                <div className="date" onClick={this.showSecondModal}>
+                  {determineSecond().name}
+                  <br />
+                  <em>{time2}</em>
+                </div>
+              </div>
+          </div>
+        )}
 
-          <br />
-          {time[1]}
-        </div>
+        <button className="done" onClick={this.addWork}>
+          Add Workout
+        </button>
       </div>
     );
   }

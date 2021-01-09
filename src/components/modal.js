@@ -1,12 +1,14 @@
 import React from "react";
 import "../styles/modal.css";
+import PropTypes from "prop-types";
+
 
 export default class Modal extends React.Component {
   markAsCompleted = (e) => {
     this.props.markAsComplete(e.currentTarget.value);
     this.props.closeModal()
   };
-  render() {
+  render()  {
     return (
       <div id="modal-window" className="shadow">
         <div className="main-modal">
@@ -33,3 +35,4 @@ export default class Modal extends React.Component {
     );
   }
 }
+
