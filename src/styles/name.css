@@ -7,16 +7,19 @@
   
   .done {
     background-color: #fca311;
-    color: white;
+    color: black;
     padding: 10px;
     display: block;
     margin: auto;
     margin-top: 10px;
   }
 
- 
+ label {
+   text-align: center;
+   display: block;
+ }
   
-  .name-div p {
+  .name-div h3 {
     text-align: center;
     font-weight: bold;
     font-size: 20px;

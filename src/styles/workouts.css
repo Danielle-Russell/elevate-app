@@ -30,12 +30,18 @@ h2 {
   margin-top: 10px;
 }
 
-text {
+.text {
   display: flex;
+  color: white;
+  margin: 0;
 }
 
 .day {
   text-align: center;
   font-size: 20px;
   font-weight: bold;
+}
+
+.day span {
+  color: black;
 }

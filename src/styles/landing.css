@@ -47,7 +47,7 @@ header {
 span {
   text-align: center;
   margin: 3%;
-  color: black;
+  color: white
 }
 
 hr {
@@ -67,8 +67,9 @@ hr {
   justify-content: center;
 }
 
-footer {
-  background-color: black;
+.landing-title {
+  text-align: left;
+  font-size: 15px;
 }
 
 /* Desktop Styles */

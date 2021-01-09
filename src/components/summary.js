@@ -80,8 +80,9 @@ postPref = () => {
     return (
       <div>
         <header>Elevate</header>
+        <h1>Sign Up</h1>
         <p>
-         Sign up to view your personalized workout plan
+         Sign up to view and manage your personalized workout plan
         </p>
         <div className="form-wrap">
           <form className="summary-form" id="landing-form" onSubmit={this.handleNewUser}>
@@ -123,6 +124,7 @@ postPref = () => {
             <button className="new" type="submit">
               Submit
             </button>
+            {this.state.error ? this.state.error : null}
           </form>
         </div>
       </div>

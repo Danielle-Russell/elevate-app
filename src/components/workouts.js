@@ -1,10 +1,8 @@
 import React from "react";
-import moment from "moment";
 import "../styles/workouts.css";
 import Modal from "./modal.js";
 import SecondModal from "./secondModal.js";
 import workouts from "./dummyData";
-import config from "../config";
 
 export default class Workouts extends React.Component {
   state = {
@@ -89,9 +87,9 @@ export default class Workouts extends React.Component {
 
   changeBack = () => {
     this.setState({
-      myWorkouts: false
-    })
-  }
+      myWorkouts: false,
+    });
+  };
   render() {
     const determineFirst = () => {
       let pref = localStorage.getItem("goal");
@@ -211,7 +209,7 @@ export default class Workouts extends React.Component {
 
     const mapWorkouts = workoutArray().map((workouts) =>
       workouts !== "" ? (
-        <div className="date">
+        <div className="date" key={workouts.id}>
           <b>{workouts.title}</b> <br /> {workouts.descr} <br />{" "}
           <em>Tip: {workouts.tip}</em>
         </div>
@@ -221,8 +219,8 @@ export default class Workouts extends React.Component {
     return (
       <div>
         <header>
-          Elevate <text onClick={this.changeBack}>Workout Plan</text>{" "}
-          <text onClick={this.change}>My Workouts</text>
+          Elevate <span className="text" onClick={this.changeBack}>Workout Plan</span>{" "}
+          <span className="text" onClick={this.change}>My Workouts</span>
         </header>
         {this.state.showFirst ? (
           <Modal
@@ -241,7 +239,8 @@ export default class Workouts extends React.Component {
 
         {this.state.myWorkouts ? (
           <div>
-            {this.state.randomWorkout ? <h1>{randomize.title}</h1> : null}{" "}
+            <h1>My Workouts</h1>
+            {this.state.randomWorkout ? <h2>{randomize.title}</h2> : null}{" "}
             {mapWorkouts}
             <button className="btn-other" onClick={random}>
               Random Workout
@@ -280,19 +279,18 @@ export default class Workouts extends React.Component {
                   <span> &#8594; </span>
                 </div>
               ) : null}
-              <div>
+              <div></div>
+              <div className="date" onClick={this.showModal}>
+                {determineFirst().name}
+                <br />
+                <em>{time1}</em>
               </div>
-                <div className="date" onClick={this.showModal}>
-                  {determineFirst().name}
-                  <br />
-                  <em>{time1}</em>
-                </div>
-                <div className="date" onClick={this.showSecondModal}>
-                  {determineSecond().name}
-                  <br />
-                  <em>{time2}</em>
-                </div>
+              <div className="date" onClick={this.showSecondModal}>
+                {determineSecond().name}
+                <br />
+                <em>{time2}</em>
               </div>
+            </div>
           </div>
         )}
 

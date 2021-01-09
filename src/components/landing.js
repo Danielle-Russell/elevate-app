@@ -27,7 +27,7 @@ export default class Landing extends React.Component {
         localStorage.setItem("user email", user.email);
         localStorage.setItem("firstname", user.firstname);
         localStorage.setItem("lastname", user.lastname);
-        this.props.history.push("/workouts")
+        this.props.history.push("/workouts");
         window.location.reload();
       })
       .catch((res) => {
@@ -39,7 +39,7 @@ export default class Landing extends React.Component {
   render() {
     return (
       <div>
-        <header>Elevate</header>
+        <header><h1 className="landing-title">Elevate</h1></header>
         <main className="wrapper">
           <div className="left-item">
             <img
@@ -49,14 +49,14 @@ export default class Landing extends React.Component {
           </div>
           <div className="right-item">
             <form onSubmit={this.handleSubmitJwtAuth}>
-              {/*<label htmlFor="username"> Username </label>*/}
+              <label htmlFor="username"> Username </label>
               <input
                 id="username"
                 type="text"
                 placeholder="Username"
                 name="email"
               />
-              {/*<label htmlFor="password"> Password </label>*/}
+              <label htmlFor="password"> Password </label>
               <input
                 id="password"
                 type="password"
@@ -67,7 +67,6 @@ export default class Landing extends React.Component {
                 Log In
               </button>
               {this.state.error ? this.state.error : null}
-              <span>Forgot Password?</span>
               <hr />
               <button onClick={this.firstQuestion} type="button">
                 New User
@@ -80,6 +79,7 @@ export default class Landing extends React.Component {
             <img
               className="icon"
               src="https://img.icons8.com/fluent/96/000000/administrative-tools.png"
+              alt="settings icon"
             />{" "}
             <p>Customize your workouts </p>
           </div>
@@ -87,6 +87,7 @@ export default class Landing extends React.Component {
             <img
               className="icon"
               src="https://img.icons8.com/cotton/64/000000/like--v4.png"
+              alt="heart icon"
             />{" "}
             <p>Exercise your mind, body and soul</p>
           </div>
@@ -94,11 +95,11 @@ export default class Landing extends React.Component {
             <img
               className="icon"
               src="https://img.icons8.com/cotton/64/000000/checklist--v3.png"
+              alt="checklist icon"
             />{" "}
             <p>Check your goals with a sustainable and effective plan</p>
           </div>
         </div>
-        <footer>Danielle Russell 2020</footer>
       </div>
     );
   }
