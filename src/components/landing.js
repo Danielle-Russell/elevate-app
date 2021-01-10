@@ -6,6 +6,7 @@ import TokenService from "../tokenService";
 export default class Landing extends React.Component {
   state = {
     error: false,
+    demo: false,
   };
   firstQuestion = () => {
     this.props.history.push("/name");
@@ -13,8 +14,7 @@ export default class Landing extends React.Component {
 
   handleSubmitJwtAuth = (ev) => {
     ev.preventDefault();
-    const { email, password } = ev.target;
-
+    let { email, password } = ev.target;
     AuthApiService.postLogin({
       email: email.value,
       password: password.value,
@@ -36,10 +36,19 @@ export default class Landing extends React.Component {
       });
   };
 
+  demo = () => {
+    this.setState({
+      demo: true,
+    });
+  };
+
   render() {
     return (
       <div>
-        <header><h1 className="landing-title">Elevate</h1></header>
+        <header>
+          <h1 className="landing-title">Elevate</h1>
+          <button className="demo" onClick={this.demo}>Demo</button>
+        </header>
         <main className="wrapper">
           <div className="left-item">
             <img
@@ -49,12 +58,14 @@ export default class Landing extends React.Component {
           </div>
           <div className="right-item">
             <form onSubmit={this.handleSubmitJwtAuth}>
-              <label htmlFor="username"> Username </label>
+
+              <label htmlFor="username"> Email </label>
               <input
                 id="username"
                 type="text"
-                placeholder="Username"
+                placeholder="Email"
                 name="email"
+                value={this.state.demo ? "demo@gmail.com" : null}
               />
               <label htmlFor="password"> Password </label>
               <input
@@ -62,13 +73,14 @@ export default class Landing extends React.Component {
                 type="password"
                 placeholder="Password"
                 name="password"
+                value={this.state.demo ? "12345678" : null}
               />
-              <button id="login-btn" type="submit">
+              <button className="new" type="submit">
                 Log In
               </button>
               {this.state.error ? this.state.error : null}
               <hr />
-              <button onClick={this.firstQuestion} type="button">
+              <button className="new" onClick={this.firstQuestion} type="button">
                 New User
               </button>
             </form>

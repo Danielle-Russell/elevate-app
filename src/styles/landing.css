@@ -72,6 +72,12 @@ hr {
   font-size: 15px;
 }
 
+.demo {
+  background-color: lightblue;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
 /* Desktop Styles */
 @media all and (min-width: 800px) {
   .wrapper {

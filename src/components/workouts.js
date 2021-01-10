@@ -90,6 +90,11 @@ export default class Workouts extends React.Component {
       myWorkouts: false,
     });
   };
+
+  signOut = () => {
+    this.props.history.push("/")
+    localStorage.clear()
+  }
   render() {
     const determineFirst = () => {
       let pref = localStorage.getItem("goal");
@@ -221,6 +226,7 @@ export default class Workouts extends React.Component {
         <header>
           Elevate <span className="text" onClick={this.changeBack}>Workout Plan</span>{" "}
           <span className="text" onClick={this.change}>My Workouts</span>
+          <span className="text" onClick={this.signOut}>Sign Out</span>
         </header>
         {this.state.showFirst ? (
           <Modal
