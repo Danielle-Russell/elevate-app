@@ -27,7 +27,9 @@ export default class Weight extends React.Component {
             ? this.props.weight + "+"
             : this.props.weight + "lbs"}{" "}
         </div>
-        <label htmlFor="slider"> Weight
+        <label htmlFor="slider">
+          {" "}
+          Weight
           <input
             id="slider"
             className="slider"

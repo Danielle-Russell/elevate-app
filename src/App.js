@@ -23,8 +23,8 @@ class App extends React.Component {
     goals: [],
     time: [],
     days: [],
-    preferences: {},
-    work: {},
+    preferences: [],
+    work: [],
   };
 
   nameChange = (name) => {
@@ -99,9 +99,11 @@ class App extends React.Component {
         return Promise.all([workoutsRes.json(), prefRes.json()]);
       })
       .then(([workouts, preferences]) => {
+        const workoutArray = Object.entries(workouts);
+        const prefArray = Object.entries(preferences);
         this.setState({
-          work: workouts,
-          preferences: preferences,
+          work: workoutArray,
+          preferences: prefArray,
         });
       })
       .catch((e) => {
@@ -112,44 +114,42 @@ class App extends React.Component {
   }
 
   splitDays = () => {
-    let pref;
-    if (this.state.preferences[0]) {
-      pref = this.state.preferences[0].days.split(",");
-    } else {
-      pref = ["1", "2", "3", "4"];
+    for (let i = 0; i < this.state.preferences.length - 8; i++) {
+      let days = this.state.preferences[i][1].days;
+      return days.split(",");
     }
-    localStorage.setItem("day1", pref[0]);
-    localStorage.setItem("day2", pref[1]);
-    localStorage.setItem("day3", pref[2]);
-    localStorage.setItem("day4", pref[3]);
   };
 
   splitTime = () => {
-    let pref;
-    if (this.state.preferences[0]) {
-      pref = this.state.preferences[0].time.split(",");
-    } else {
-      pref = ["1", "2", "3", "4"];
+    for (let i = 0; i < this.state.preferences.length - 8; i++) {
+      return this.state.preferences[i][1].time;
     }
-    localStorage.setItem("time1", pref[0]);
-    localStorage.setItem("time2", pref[1]);
+  };
+
+  workoutArray = () => {
+    let array = []
+    for (let i = 0; i < this.state.work.length; i++) {
+      array.push(this.state.work[i][1]);
+    }
+    return array
   };
 
   goal = () => {
-    let pref;
-    if (this.state.preferences[0]) {
-      pref = this.state.preferences[0].goals;
-      localStorage.setItem("name", this.state.preferences[0].name);
-    } else {
-      pref = ["Lose Weight"];
+    let goal = "";
+    let name = "";
+    for (let i = 0; i < this.state.preferences.length - 8; i++) {
+      goal = this.state.preferences[i][1].goals;
+      name = this.state.preferences[i][1].name;
     }
-    localStorage.setItem("goal", pref);
+    localStorage.setItem("goal", goal);
+    localStorage.setItem("name", name);
   };
 
   render() {
-    this.splitDays();
+    const time = this.splitTime();
+    const days = this.splitDays();
+    const workouts = this.workoutArray();
 
-    this.splitTime();
 
     this.goal();
     return (
@@ -212,7 +212,9 @@ class App extends React.Component {
           path="/summary"
         />
         <Route
-          render={(props) => <Workouts {...props} state={this.state} />}
+          render={(props) => (
+            <Workouts {...props} time={time} days={days} workouts={workouts} />
+          )}
           path="/workouts"
         />
         <Route

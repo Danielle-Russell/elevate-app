@@ -1,15 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
 import Workouts from "../components/workouts";
+import Enzyme, { shallow, mount } from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 
-it("renders without crashing", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(
-    <BrowserRouter>
-      <Workouts />
-    </BrowserRouter>,
-    div
-  );
-  ReactDOM.unmountComponentAtNode(div);
+Enzyme.configure({ adapter: new Adapter() });
+test("it should render", () => {
+  shallow(<Workouts />);
 });

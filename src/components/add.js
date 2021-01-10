@@ -36,10 +36,16 @@ export default class AddWorkout extends React.Component {
       });
   };
 
+  back = () => {
+    this.props.history.goBack();
+  };
   render() {
     return (
       <div>
-        <header>Elevate</header>
+        <header>
+          {" "}
+          <span onClick={this.back}>&#8592;</span> Elevate{" "}
+        </header>{" "}
         <br />
         <div className="form-wrap">
           <form id="landing-form" onSubmit={this.postWork}>

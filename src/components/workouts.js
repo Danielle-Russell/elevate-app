@@ -44,6 +44,7 @@ export default class Workouts extends React.Component {
   addWork = () => {
     this.props.history.push("/add");
   };
+  //Navigate through each day of workout plan
   dayOne = () => {
     this.setState({
       dayOne: true,
@@ -52,6 +53,7 @@ export default class Workouts extends React.Component {
       dayFour: false,
     });
   };
+
   dayTwo = () => {
     this.setState({
       dayOne: false,
@@ -78,7 +80,7 @@ export default class Workouts extends React.Component {
       dayFour: true,
     });
   };
-
+  //Toggle to my workouts
   change = () => {
     this.setState({
       myWorkouts: true,
@@ -92,10 +94,12 @@ export default class Workouts extends React.Component {
   };
 
   signOut = () => {
-    this.props.history.push("/")
-    localStorage.clear()
-  }
+    this.props.history.push("/");
+    localStorage.clear();
+  };
+
   render() {
+    //Determine workout based on preferences
     const determineFirst = () => {
       let pref = localStorage.getItem("goal");
       if (this.state.dayOne) {
@@ -135,6 +139,7 @@ export default class Workouts extends React.Component {
           : workouts.weight.dayFour[0];
       }
     };
+    //Determine second workout based on preferences
 
     const determineSecond = () => {
       let pref = localStorage.getItem("goal");
@@ -176,35 +181,17 @@ export default class Workouts extends React.Component {
       }
     };
 
-    const markAsComplete = (name) => {
-      this.setState({
-        completed: [...this.state.completed, name],
-      });
-    };
-
-    const day1 = localStorage.getItem("day1");
-    const day2 = localStorage.getItem("day2");
-
-    const day3 = localStorage.getItem("day3");
-
-    const day4 = localStorage.getItem("day4");
-
-    const time1 = localStorage.getItem("time1");
-
-    const time2 = localStorage.getItem("time2");
-
     const name = localStorage.getItem("name");
 
-    const workoutArray = () => {
-      let arr = [];
-      for (var key in this.props.state.work) {
-        arr.push(this.props.state.work[key]);
+    const determine = determineFirst();
+    const determine2 = determineSecond();
+    var randomize = () => {
+      let array = [];
+      for (let i = 0; i < this.props.workouts.length - 3; i++) {
+        array.push(this.props.workouts[i].title);
       }
-      return arr;
+      return array[Math.floor(Math.random() * (array.length - 3))];
     };
-
-    var random_index = Math.floor(Math.random() * (workoutArray().length - 3));
-    var randomize = workoutArray()[random_index];
 
     const random = () => {
       this.setState({
@@ -212,7 +199,7 @@ export default class Workouts extends React.Component {
       });
     };
 
-    const mapWorkouts = workoutArray().map((workouts) =>
+    const mapWorkouts = this.props.workouts.map((workouts) =>
       workouts !== "" ? (
         <div className="date" key={workouts.id}>
           <b>{workouts.title}</b> <br /> {workouts.descr} <br />{" "}
@@ -220,33 +207,36 @@ export default class Workouts extends React.Component {
         </div>
       ) : null
     );
+    const timeSplit = this.props.time.split(",");
 
     return (
       <div>
         <header>
-          Elevate <span className="text" onClick={this.changeBack}>Workout Plan</span>{" "}
-          <span className="text" onClick={this.change}>My Workouts</span>
-          <span className="text" onClick={this.signOut}>Sign Out</span>
+          Elevate
+          <span className="text" onClick={this.changeBack}>
+            Workout Plan
+          </span>
+          <span className="text" onClick={this.change}>
+            My Workouts
+          </span>
+          <span className="text" onClick={this.signOut}>
+            Sign Out
+          </span>
         </header>
         {this.state.showFirst ? (
-          <Modal
-            closeModal={this.closeModal}
-            determineFirst={determineFirst}
-            markAsComplete={markAsComplete}
-          />
+          <Modal closeModal={this.closeModal} determine={determine} />
         ) : null}
         {this.state.showSecond ? (
           <SecondModal
             closeSecondModal={this.closeSecondModal}
-            determineSecond={determineSecond}
-            markAsComplete={markAsComplete}
+            determine2={determine2}
           />
         ) : null}
 
         {this.state.myWorkouts ? (
           <div>
             <h1>My Workouts</h1>
-            {this.state.randomWorkout ? <h2>{randomize.title}</h2> : null}{" "}
+            {this.state.randomWorkout ? <h2>{randomize()}</h2> : null}
             {mapWorkouts}
             <button className="btn-other" onClick={random}>
               Random Workout
@@ -260,27 +250,27 @@ export default class Workouts extends React.Component {
               {this.state.dayOne ? (
                 <div>
                   <span>&#8592;</span>
-                  {day1}
+                  {this.props.days[0]}
                   <span onClick={this.dayTwo}> &#8594; </span>
                 </div>
               ) : this.state.dayTwo ? (
                 <div>
                   <span onClick={this.dayOne}>&#8592;</span>
-                  {day2}
+                  {this.props.days[1]}
 
                   <span onClick={this.dayThree}> &#8594; </span>
                 </div>
               ) : this.state.dayThree ? (
                 <div>
                   <span onClick={this.dayTwo}>&#8592;</span>
-                  {day3}
+                  {this.props.days[2]}
 
                   <span onClick={this.dayFour}> &#8594; </span>
                 </div>
               ) : this.state.dayFour ? (
                 <div>
                   <span onClick={this.dayThree}>&#8592;</span>
-                  {day4}
+                  {this.props.days[3]}
 
                   <span> &#8594; </span>
                 </div>
@@ -289,12 +279,12 @@ export default class Workouts extends React.Component {
               <div className="date" onClick={this.showModal}>
                 {determineFirst().name}
                 <br />
-                <em>{time1}</em>
+                {<em>{timeSplit[0]}</em>}
               </div>
               <div className="date" onClick={this.showSecondModal}>
                 {determineSecond().name}
                 <br />
-                <em>{time2}</em>
+                {<em>{timeSplit[1]}</em>}
               </div>
             </div>
           </div>
@@ -307,3 +297,9 @@ export default class Workouts extends React.Component {
     );
   }
 }
+
+Workouts.defaultProps = {
+  days: ["Mon", "Tues", "Weds", "Thurs"],
+  time: "Morning,Afternoon",
+  workouts: [],
+};

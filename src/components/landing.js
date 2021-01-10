@@ -47,7 +47,9 @@ export default class Landing extends React.Component {
       <div>
         <header>
           <h1 className="landing-title">Elevate</h1>
-          <button className="demo" onClick={this.demo}>Demo</button>
+          <button className="demo" onClick={this.demo}>
+            Demo
+          </button>
         </header>
         <main className="wrapper">
           <div className="left-item">
@@ -58,7 +60,6 @@ export default class Landing extends React.Component {
           </div>
           <div className="right-item">
             <form onSubmit={this.handleSubmitJwtAuth}>
-
               <label htmlFor="username"> Email </label>
               <input
                 id="username"
@@ -80,7 +81,11 @@ export default class Landing extends React.Component {
               </button>
               {this.state.error ? this.state.error : null}
               <hr />
-              <button className="new" onClick={this.firstQuestion} type="button">
+              <button
+                className="new"
+                onClick={this.firstQuestion}
+                type="button"
+              >
                 New User
               </button>
             </form>
