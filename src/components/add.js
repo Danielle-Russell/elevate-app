@@ -6,7 +6,6 @@ export default class AddWorkout extends React.Component {
     hasError: false,
   };
   next = () => {
-    this.props.history.push("/workouts");
     window.location.reload();
   };
 
@@ -29,7 +28,6 @@ export default class AddWorkout extends React.Component {
       .then((response) => {
         return response.json();
       })
-      .then(this.props.addWorkout)
       .then(this.next)
       .catch((error) => {
         console.log(error);
@@ -49,25 +47,39 @@ export default class AddWorkout extends React.Component {
         <br />
         <div className="form-wrap">
           <form id="landing-form" onSubmit={this.postWork}>
-            <b className="log"> New Workout </b>
+            <h1 className="log"> New Workout </h1>
             <br />
             <br />
-            <label htmlFor="title">Title: </label>
-            <input name="title" type="text" placeholder="Title" required />
-            <label htmlFor="descr">Description: </label>
-            <input
-              name="descr"
-              type="text"
-              placeholder="Describe your workout"
-              required
-            />
-            <label htmlFor="tip">Tip: </label>
-            <input
-              name="tip"
-              type="text"
-              placeholder="e.g. Don't forget to bring water!"
-              required
-            />
+            <label htmlFor="title">
+              Title:
+              <input
+                id="title"
+                name="title"
+                type="text"
+                placeholder="Title"
+                required
+              />
+            </label>
+            <label htmlFor="descr">
+              Description:
+              <input
+                id="descr"
+                name="descr"
+                type="text"
+                placeholder="Describe your workout"
+                required
+              />
+            </label>
+            <label htmlFor="tip">
+              Tip:
+              <input
+                id="tip"
+                name="tip"
+                type="text"
+                placeholder="e.g. Don't forget to bring water!"
+                required
+              />
+            </label>
             <button className="new" type="submit">
               Submit
             </button>

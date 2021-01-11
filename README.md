@@ -5,7 +5,7 @@
 
 ### Summary
 
-Elevate is a fullstack, interactive web app that designs a worokout plan for users based on their selections. It also provides the ability for users to add their own workouts, and to generate random workouts from their list is they are having trouble finding a starting point for their workout.
+Elevate is a fullstack, interactive web app that designs a workout plan for users based on their selections. It also provides the ability for users to add their own workouts, and to generate random workouts from their personal list.
 
 ### Technology
 

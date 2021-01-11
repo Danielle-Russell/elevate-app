@@ -1,12 +1,12 @@
 .age-range {
-    text-align: center;
-    border: solid;
-    margin: auto;
-    background-color: whitesmoke;
-    font-weight: bold;
-    color: black;
-    padding: 20px;
-    display: block;
-    margin-top: 20px;
-    width: 80%;
+  text-align: center;
+  border: solid;
+  margin: auto;
+  background-color: whitesmoke;
+  font-weight: bold;
+  color: black;
+  padding: 20px;
+  display: block;
+  margin-top: 20px;
+  width: 80%;
 }

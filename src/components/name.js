@@ -18,15 +18,13 @@ export default class Name extends React.Component {
     return (
       <div className="name-div">
         <header>
-          {" "}
-          <span onClick={this.back}>&#8592;</span>{" "}
+          <span onClick={this.back}>&#8592;</span>
           <h1 className="landing-title">Elevate</h1>
         </header>
         <h2>What can we call you?</h2>
-        <h3>{this.props.name ? this.props.name : "Enter Name"}</h3>
-
         <label htmlFor="name">
-          Name
+          <h3>{this.props.name ? this.props.name : "Enter Name"}</h3>
+
           <input
             id="name"
             name="name"

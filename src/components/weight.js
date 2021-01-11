@@ -21,15 +21,13 @@ export default class Weight extends React.Component {
           {" "}
           <span onClick={this.back}>&#8592;</span> Elevate{" "}
         </header>
-        <h1>Weight</h1>
-        <div className="age-range">
-          {Number(this.props.weight) === 400
-            ? this.props.weight + "+"
-            : this.props.weight + "lbs"}{" "}
-        </div>
         <label htmlFor="slider">
-          {" "}
-          Weight
+          <h1>Weight</h1>
+          <div className="age-range">
+            {Number(this.props.weight) === 400
+              ? this.props.weight + "+"
+              : this.props.weight + "lbs"}{" "}
+          </div>
           <input
             id="slider"
             className="slider"

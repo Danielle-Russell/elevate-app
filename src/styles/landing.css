@@ -33,7 +33,7 @@ header {
   height: 60%;
   width: 50%;
   margin: auto;
-  margin-top: 20px; 
+  margin-top: 20px;
 }
 
 .right-item form input {
@@ -47,7 +47,7 @@ header {
 span {
   text-align: center;
   margin: 3%;
-  color: white
+  color: white;
 }
 
 hr {
@@ -106,5 +106,5 @@ hr {
     margin: 0;
     margin-left: 15%;
     margin-top: 6%;
-}
+  }
 }

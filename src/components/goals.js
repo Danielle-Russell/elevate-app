@@ -51,7 +51,9 @@ export default class Goals extends React.Component {
             </div>
           ))}
         </div>
-        {this.active() ? "Please select 1" : null}
+        {this.active() ? (
+          <span className="warning">Please select 1</span>
+        ) : null}
         <button onClick={this.next} disabled={this.active()} className="done">
           Done
         </button>

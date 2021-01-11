@@ -15,9 +15,11 @@ export default class Landing extends React.Component {
   handleSubmitJwtAuth = (ev) => {
     ev.preventDefault();
     let { email, password } = ev.target;
+    const dynamicEmail = !this.state.demo ? email.value : "demo@gmail.com";
+    const dynamicPassword = !this.state.demo ? password.value : "12345678";
     AuthApiService.postLogin({
-      email: email.value,
-      password: password.value,
+      email: dynamicEmail,
+      password: dynamicPassword,
     })
       .then((res) => {
         email.value = "";
@@ -47,9 +49,6 @@ export default class Landing extends React.Component {
       <div>
         <header>
           <h1 className="landing-title">Elevate</h1>
-          <button className="demo" onClick={this.demo}>
-            Demo
-          </button>
         </header>
         <main className="wrapper">
           <div className="left-item">
@@ -64,22 +63,23 @@ export default class Landing extends React.Component {
               <input
                 id="username"
                 type="text"
-                placeholder="Email"
+                placeholder={this.state.demo ? "demo@gmail.com" : "Email"}
                 name="email"
-                value={this.state.demo ? "demo@gmail.com" : null}
               />
               <label htmlFor="password"> Password </label>
               <input
                 id="password"
                 type="password"
-                placeholder="Password"
+                placeholder={this.state.demo ? "demopassword" : "Password"}
                 name="password"
-                value={this.state.demo ? "12345678" : null}
               />
+              <button className="demo" onClick={this.demo}>
+                Demo
+              </button>
               <button className="new" type="submit">
                 Log In
               </button>
-              {this.state.error ? this.state.error : null}
+              {this.state.error ? <span className="warning">{this.state.error}</span> : null}
               <hr />
               <button
                 className="new"

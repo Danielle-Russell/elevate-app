@@ -54,7 +54,9 @@ export default class Days extends React.Component {
             </div>
           ))}
         </div>
-        {this.active() ? "Please select 4" : null}
+        {this.active() ? (
+          <span className="warning">Please select 4</span>
+        ) : null}
         <button onClick={this.next} disabled={this.active()} className="done">
           Done
         </button>

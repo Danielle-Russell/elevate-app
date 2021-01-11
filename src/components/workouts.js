@@ -3,6 +3,7 @@ import "../styles/workouts.css";
 import Modal from "./modal.js";
 import SecondModal from "./secondModal.js";
 import workouts from "./dummyData";
+import AddWorkout from "./add.js";
 
 export default class Workouts extends React.Component {
   state = {
@@ -12,9 +13,9 @@ export default class Workouts extends React.Component {
     dayTwo: false,
     dayThree: false,
     dayFour: false,
-    completed: [],
     myWorkouts: false,
     randomWorkout: false,
+    showAdd: false,
   };
 
   showModal = () => {
@@ -41,9 +42,6 @@ export default class Workouts extends React.Component {
     });
   };
 
-  addWork = () => {
-    this.props.history.push("/add");
-  };
   //Navigate through each day of workout plan
   dayOne = () => {
     this.setState({
@@ -84,9 +82,14 @@ export default class Workouts extends React.Component {
   change = () => {
     this.setState({
       myWorkouts: true,
+      showAdd: false,
     });
   };
-
+  addWork = () => {
+    this.setState({
+      showAdd: true,
+    });
+  };
   changeBack = () => {
     this.setState({
       myWorkouts: false,
@@ -211,88 +214,98 @@ export default class Workouts extends React.Component {
 
     return (
       <div>
-        <header>
-          Elevate
-          <span className="text" onClick={this.changeBack}>
-            Workout Plan
-          </span>
-          <span className="text" onClick={this.change}>
-            My Workouts
-          </span>
-          <span className="text" onClick={this.signOut}>
-            Sign Out
-          </span>
-        </header>
-        {this.state.showFirst ? (
-          <Modal closeModal={this.closeModal} determine={determine} />
-        ) : null}
-        {this.state.showSecond ? (
-          <SecondModal
-            closeSecondModal={this.closeSecondModal}
-            determine2={determine2}
-          />
-        ) : null}
-
-        {this.state.myWorkouts ? (
-          <div>
-            <h1>My Workouts</h1>
-            {this.state.randomWorkout ? <h2>{randomize()}</h2> : null}
-            {mapWorkouts}
-            <button className="btn-other" onClick={random}>
-              Random Workout
-            </button>
-          </div>
+        {this.state.showAdd ? (
+          <AddWorkout change={this.change} />
         ) : (
           <div>
-            <h1>Welcome, {name} </h1>
-            <h2> Beginners Workout Week </h2>
-            <div className="day">
-              {this.state.dayOne ? (
-                <div>
-                  <span>&#8592;</span>
-                  {this.props.days[0]}
-                  <span onClick={this.dayTwo}> &#8594; </span>
-                </div>
-              ) : this.state.dayTwo ? (
-                <div>
-                  <span onClick={this.dayOne}>&#8592;</span>
-                  {this.props.days[1]}
+            <header>
+              Elevate
+              <span className="text" onClick={this.changeBack}>
+                Workout Plan
+              </span>
+              <span className="text" onClick={this.change}>
+                My Workouts
+              </span>
+              <span className="text" onClick={this.signOut}>
+                Sign Out
+              </span>
+            </header>
+            {this.state.showFirst ? (
+              <Modal closeModal={this.closeModal} determine={determine} />
+            ) : null}
+            {this.state.showSecond ? (
+              <SecondModal
+                closeSecondModal={this.closeSecondModal}
+                determine2={determine2}
+              />
+            ) : null}
 
-                  <span onClick={this.dayThree}> &#8594; </span>
-                </div>
-              ) : this.state.dayThree ? (
-                <div>
-                  <span onClick={this.dayTwo}>&#8592;</span>
-                  {this.props.days[2]}
-
-                  <span onClick={this.dayFour}> &#8594; </span>
-                </div>
-              ) : this.state.dayFour ? (
-                <div>
-                  <span onClick={this.dayThree}>&#8592;</span>
-                  {this.props.days[3]}
-
-                  <span> &#8594; </span>
-                </div>
-              ) : null}
-              <div></div>
-              <div className="date" onClick={this.showModal}>
-                {determineFirst().name}
-                <br />
-                {<em>{timeSplit[0]}</em>}
+            {this.state.myWorkouts ? (
+              <div>
+                <h1>My Workouts</h1>
+                {this.state.randomWorkout ? <h2>{randomize()}</h2> : null}
+                {mapWorkouts}
+                <p>
+                  Click "Random Workout" to randomly generate a workout to do
+                  today
+                </p>
+                <button className="btn-other" onClick={random}>
+                  Random Workout
+                </button>
               </div>
-              <div className="date" onClick={this.showSecondModal}>
-                {determineSecond().name}
-                <br />
-                {<em>{timeSplit[1]}</em>}
+            ) : (
+              <div>
+                <h1>Welcome, {name} </h1>
+                <h2> Base Plan </h2>
+                <h3>Click "My Workouts" to manage your personal additions</h3>
+                <div className="day">
+                  {this.state.dayOne ? (
+                    <div>
+                      <span>&#8592;</span>
+                      {this.props.days[0]}
+                      <span onClick={this.dayTwo}> &#8594; </span>
+                    </div>
+                  ) : this.state.dayTwo ? (
+                    <div>
+                      <span onClick={this.dayOne}>&#8592;</span>
+                      {this.props.days[1]}
+
+                      <span onClick={this.dayThree}> &#8594; </span>
+                    </div>
+                  ) : this.state.dayThree ? (
+                    <div>
+                      <span onClick={this.dayTwo}>&#8592;</span>
+                      {this.props.days[2]}
+
+                      <span onClick={this.dayFour}> &#8594; </span>
+                    </div>
+                  ) : this.state.dayFour ? (
+                    <div>
+                      <span onClick={this.dayThree}>&#8592;</span>
+                      {this.props.days[3]}
+
+                      <span> &#8594; </span>
+                    </div>
+                  ) : null}
+                  <div></div>
+                  <div className="date" onClick={this.showModal}>
+                    {determineFirst().name}
+                    <br />
+                    {<em>{timeSplit[0]}</em>}
+                  </div>
+                  <div className="date" onClick={this.showSecondModal}>
+                    {determineSecond().name}
+                    <br />
+                    {<em>{timeSplit[1]}</em>}
+                  </div>
+                </div>
               </div>
-            </div>
+            )}
+            <button className="done" onClick={this.addWork}>
+              Add Workout
+            </button>
           </div>
         )}
-
-        <button className="done" onClick={this.addWork}>
-          Add Workout
-        </button>
       </div>
     );
   }

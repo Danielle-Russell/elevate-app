@@ -10,11 +10,11 @@ export default class SecondModal extends React.Component {
           <br />
           <div className="workoutPlan">
             <h2>Why</h2>
-            <p>{this.props.determine2().why}</p>
+            <p>{this.props.determine2.why}</p>
           </div>
           <div className="workoutPlan">
             <h2>Tip</h2>
-            <p>{this.props.determine2().tip}</p>
+            <p>{this.props.determine2.tip}</p>
           </div>
           <button onClick={this.props.closeSecondModal} className="close">
             X
@@ -26,7 +26,9 @@ export default class SecondModal extends React.Component {
 }
 
 SecondModal.defaultProps = {
-  name: "",
-  descr: "",
-  tip: "",
+  determine2: {
+    name: "",
+    descr: "",
+    tip: "",
+  },
 };

@@ -10,7 +10,6 @@ import Time from "./components/time.js";
 import Days from "./components/days.js";
 import Summary from "./components/summary.js";
 import Workouts from "./components/workouts.js";
-import AddWorkout from "./components/add.js";
 
 import config from "./config";
 
@@ -82,10 +81,6 @@ class App extends React.Component {
     });
   };
 
-  addWorkout = (work) => {
-    console.log(work);
-  };
-
   componentDidMount() {
     const email = localStorage.getItem("user email");
     Promise.all([
@@ -127,11 +122,11 @@ class App extends React.Component {
   };
 
   workoutArray = () => {
-    let array = []
+    let array = [];
     for (let i = 0; i < this.state.work.length; i++) {
       array.push(this.state.work[i][1]);
     }
-    return array
+    return array;
   };
 
   goal = () => {
@@ -149,7 +144,6 @@ class App extends React.Component {
     const time = this.splitTime();
     const days = this.splitDays();
     const workouts = this.workoutArray();
-
 
     this.goal();
     return (
@@ -216,12 +210,6 @@ class App extends React.Component {
             <Workouts {...props} time={time} days={days} workouts={workouts} />
           )}
           path="/workouts"
-        />
-        <Route
-          render={(props) => (
-            <AddWorkout {...props} addWorkout={this.addWorkout} />
-          )}
-          path="/add"
         />
       </div>
     );

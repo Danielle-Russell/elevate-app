@@ -52,7 +52,9 @@ export default class Time extends React.Component {
             </div>
           ))}
         </div>
-        {this.active() ? "Please select 2" : null}
+        {this.active() ? (
+          <span className="warning">Please select 2 </span>
+        ) : null}
         <button onClick={this.next} disabled={this.active()} className="done">
           Done
         </button>

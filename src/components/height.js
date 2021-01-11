@@ -36,10 +36,10 @@ export default class Height extends React.Component {
           {" "}
           <span onClick={this.back}>&#8592;</span> Elevate{" "}
         </header>
-        <h1>Height</h1>
-        <div className="age-range">{this.convertedCentoFeet()} </div>
         <label htmlFor="slider">
-          Height
+          <h1>Height</h1>
+          <div className="age-range">{this.convertedCentoFeet()} </div>
+
           <input
             id="slider"
             className="slider"
@@ -49,9 +49,12 @@ export default class Height extends React.Component {
             max="250"
           />
         </label>
-        {this.calculateBMI() <= 18.5
-          ? "Your BMI is less than 18.5%. We recommend consulting your doctor before engaging in regular workouts"
-          : null}
+        {this.calculateBMI() <= 18.5 ? (
+          <span className="warning">
+            Your BMI is less than 18.5%. We recommend consulting your doctor
+            before engaging in regular workouts
+          </span>
+        ) : null}
         <button className="done" onClick={this.next}>
           Done!
         </button>
