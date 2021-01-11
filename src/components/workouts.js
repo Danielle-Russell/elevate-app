@@ -188,12 +188,13 @@ export default class Workouts extends React.Component {
 
     const determine = determineFirst();
     const determine2 = determineSecond();
+
     var randomize = () => {
       let array = [];
       for (let i = 0; i < this.props.workouts.length - 3; i++) {
         array.push(this.props.workouts[i].title);
       }
-      return array[Math.floor(Math.random() * (array.length - 3))];
+      return array[Math.floor(Math.random() * array.length)];
     };
 
     const random = () => {
@@ -210,8 +211,8 @@ export default class Workouts extends React.Component {
         </div>
       ) : null
     );
-    const timeSplit = this.props.time.split(",");
 
+    const timeSplit = this.props.time.split(",");
     return (
       <div>
         {this.state.showAdd ? (
