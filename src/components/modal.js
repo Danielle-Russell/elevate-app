@@ -6,7 +6,7 @@ export default class Modal extends React.Component {
     return (
       <div id="modal-window" className="shadow">
         <div className="main-modal">
-          <h1 className="workout-title">{this.props.determine.name}</h1>
+          <h1 className="workout-title">{this.props.newWorkout ? this.props.currentWorkout : this.props.determine.name}</h1>
           <br />
           <div className="workoutPlan">
             <h2>Why</h2>
