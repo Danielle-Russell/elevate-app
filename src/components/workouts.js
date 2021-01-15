@@ -101,21 +101,6 @@ export default class Workouts extends React.Component {
     localStorage.clear();
   };
 
-  selectWorkouts = () => {
-    let option = []
-    for (let i = 0; i < this.props.workouts.length -3; i++) {
-      console.log(this.props.workouts[i])
-      option.push(<option>{this.props.workouts[i].title}</option>)
-    } return option
-  }
-
-  changeWorkout = (e) => {
-  this.setState({
-    newWorkout: true,
-    currentWorkout: e.target.value
-  })
-  }
-
   render() {
     //Determine workout based on preferences
     const determineFirst = () => {
@@ -228,7 +213,7 @@ export default class Workouts extends React.Component {
     );
 
     const timeSplit = this.props.time.split(",");
- console.log(this.props.workouts)
+
     return (
       <div>
         {this.state.showAdd ? (
@@ -248,7 +233,12 @@ export default class Workouts extends React.Component {
               </span>
             </header>
             {this.state.showFirst ? (
-              <Modal closeModal={this.closeModal} determine={determine} newWorkout={this.state.newWorkout} currentWorkout={this.state.currentWorkout} />
+              <Modal
+                closeModal={this.closeModal}
+                determine={determine}
+                newWorkout={this.state.newWorkout}
+                currentWorkout={this.state.currentWorkout}
+              />
             ) : null}
             {this.state.showSecond ? (
               <SecondModal
@@ -306,13 +296,10 @@ export default class Workouts extends React.Component {
                   ) : null}
                   <div></div>
                   <div className="date" onClick={this.showModal}>
-                    {this.state.newWorkout ? this.state.currentWorkout : determineFirst().name}
+                    {determineFirst().name}
                     <br />
                     {<em>{timeSplit[0]}</em>}
                   </div>
-                  <select onChange={this.changeWorkout}>
-                      {this.selectWorkouts()}
-                    </select>
                   <div className="date" onClick={this.showSecondModal}>
                     {determineSecond().name}
                     <br />
