@@ -70,6 +70,8 @@ hr {
 .landing-title {
   text-align: left;
   font-size: 15px;
+  color: white;
+  display: inline-block;
 }
 
 .demo {
